@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Пам'ятники</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <<header>
+    <h1>Сайт пам'ятників</h1>
+    <p>
+        Замовляйте пам'ятники легко і швидко!<br>
+        Тут ви можете переглянути різні види пам'ятників, дізнатися про матеріали, ціни та оформити замовлення прямо онлайн.<br>
+        Фото памятників, деталі та контакти для замовлення доступні для кожного пам'ятника.<br>
+        Контактний номер: <strong>+380665606673</strong>
+    </p>
+    <hr>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

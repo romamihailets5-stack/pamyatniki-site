@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="monument-card">
+    <h2>Видалити памятник?</h2>
+    <form method="POST">
+        <label>Введіть пароль:</label>
+        <input type="password" name="password" required>
+        <button type="submit">Видалити</button>
+    </form>
+    <a href="{{ url_for('show_monuments') }}">Назад</a>
+</div>
+{% endblock %}

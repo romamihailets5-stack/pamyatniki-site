@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Каталог пам’ятників</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header>
+    <h1>Каталог пам’ятників</h1>
+    <a href="/" class="btn">На головну</a>
+</header>
+
+<section class="catalog">
+
+    <div class="card">
+        <img src="{{ url_for('static', filename='images/p1.jpg') }}" alt="Вертикальний пам’ятник">
+        <h3>Вертикальний пам’ятник</h3>
+        <p class="price">від 25 000 ₴</p>
+    </div>
+
+    <div class="card">
+        <img src="{{ url_for('static', filename='images/p2.jpg') }}" alt="Горизонтальний пам’ятник">
+        <h3>Горизонтальний пам’ятник</h3>
+        <p class="price">від 30 000 ₴</p>
+    </div>
+
+    <div class="card">
+        <img src="{{ url_for('static', filename='images/p3.jpg') }}" alt="Сімейний комплекс">
+        <h3>Сімейний комплекс</h3>
+        <p class="price">від 50 000 ₴</p>
+    </div>
+
+</section>
+
+</body>
+</html>

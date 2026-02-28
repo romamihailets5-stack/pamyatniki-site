@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Список пам'ятників</h2>
+<a href="{{ url_for('add_monument') }}">Додати пам'ятник</a>
+<hr>
+{% for monument in monuments %}
+<div class="monument-card">
+    <h3>{{ monument[1] }}</h3>
+    <img src="{{ url_for('static', filename=monument[4]) }}" width="250"><br>
+    <p>Місто: {{ monument[2] }}</p>
+    <p>Ціна: {{ monument[3] }} ₴</p>
+    <p>Матеріал: {{ monument[5] }}</p>
+    <a href="{{ url_for('monument_detail', id=monument[0]) }}">Деталі</a>
+    <form method="POST" action="{{ url_for('order_monument', monument_id=monument[0]) }}">
+        <label>Ваше ім'я:</label><br>
+        <input type="text" name="user_name" required><br>
+        <label>Телефон:</label><br>
+        <input type="text" name="user_phone" required><br>
+        <button type="submit">Замовити пам'ятник</button>
+    </form>
+    <hr>
+</div>
+{% endfor %}
+{% endblock %}
