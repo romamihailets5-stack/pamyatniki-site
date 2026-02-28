@@ -115,5 +115,9 @@ def order_monument(monument_id):
 
     return f"Дякуємо, {user_name}! Ваше замовлення на пам'ятник прийнято."
 
+@app.route('/google7a5a4a7b43c36874.html')
+def google_verification():
+    return "google-site-verification: google7a5a4a7b43c36874.html"
+
 if __name__ == "__main__":
     app.run(debug=True)
