@@ -119,7 +119,7 @@ def order_monument(monument_id):
 def google_verification():
     return "google-site-verification: google7a5a4a7b43c36874.html"
 
-<<<<<<< HEAD
+
 # ===== Удаление памятника с паролем =====
 @app.route("/delete/<int:id>", methods=["GET", "POST"])
 def delete_monument(id):
@@ -155,7 +155,7 @@ def delete_monument(id):
     <a href="{url_for('show_monuments')}">Назад</a>
     """
 
-=======
->>>>>>> 285cfc3496e8ce983636e91e7374821fc5c848d5
+
+
 if __name__ == "__main__":
     app.run(debug=True)
