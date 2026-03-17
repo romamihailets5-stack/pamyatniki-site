@@ -11,7 +11,7 @@
 >>>>>>> 285cfc3496e8ce983636e91e7374821fc5c848d5
 <div class="monument-card">
     <h3>{{ monument[1] }}</h3>
-    <img src="{{ url_for('static', filename=monument[4]) }}" width="250"><br>
+    <img src="{{ url_for('static', filename=monument[4]) }}" width="250" loading="lazy">
     <p>Місто: {{ monument[2] }}</p>
     <p>Ціна: {{ monument[3] }} ₴</p>
     <p>Матеріал: {{ monument[5] }}</p>
