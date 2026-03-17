@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="text-center">
+    <h1 class="mb-4">Ласкаво просимо на сайт пам'ятників</h1>
+    <p>Тут ви можете переглядати, додавати та редагувати пам'ятники.</p>
+    <a href="{{ url_for('show_monuments') }}" class="btn btn-primary">Переглянути пам'ятники</a>
+    <a href="{{ url_for('add_monument') }}" class="btn btn-success">Додати пам'ятник</a>
+</div>
+{% endblock %}

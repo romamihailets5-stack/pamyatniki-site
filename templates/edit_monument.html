@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Редагувати пам'ятник</h1>
+
+<form method="POST" enctype="multipart/form-data">
+    <div class="mb-3">
+        <input type="text" name="name" class="form-control" value="{{ monument[0] }}" required>
+    </div>
+    <div class="mb-3">
+        <input type="text" name="location" class="form-control" value="{{ monument[1] }}" required>
+    </div>
+    <div class="mb-3">
+        <input type="number" name="price" class="form-control" value="{{ monument[2] }}" required>
+    </div>
+    <div class="mb-3">
+        <input type="text" name="material" class="form-control" value="{{ monument[4] }}">
+    </div>
+    <div class="mb-3">
+        <textarea name="description" class="form-control">{{ monument[5] }}</textarea>
+    </div>
+    <div class="mb-3">
+        <input type="file" name="image" class="form-control">
+        {% if monument[3] %}
+        <small>Поточне фото: {{ monument[3].split('/')[-1] }}</small>
+        {% endif %}
+    </div>
+    <button type="submit" class="btn btn-primary">Зберегти</button>
+</form>
+{% endblock %}
