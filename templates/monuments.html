@@ -5,7 +5,10 @@
 <a href="{{ url_for('add_monument') }}">Додати пам'ятник</a>
 <hr>
 {% for monument in monuments %}
+<<<<<<< HEAD
 <a href="{{ url_for('delete_monument', id=monument[0]) }}">Видалити пам'ятник</a>
+=======
+>>>>>>> 285cfc3496e8ce983636e91e7374821fc5c848d5
 <div class="monument-card">
     <h3>{{ monument[1] }}</h3>
     <img src="{{ url_for('static', filename=monument[4]) }}" width="250"><br>
