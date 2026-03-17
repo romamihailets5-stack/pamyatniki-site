@@ -39,7 +39,7 @@ init_db()
 def show_monuments():
     conn = sqlite3.connect("monuments.db")
     c = conn.cursor()
-    c.execute("SELECT * FROM monuments")
+    c.execute("SELECT * FROM monuments LIMIT 10")
     monuments = c.fetchall()
     conn.close()
     return render_template("monuments.html", monuments=monuments)
