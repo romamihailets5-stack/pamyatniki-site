@@ -4,11 +4,11 @@
 <h2>Список пам'ятників</h2>
 <a href="{{ url_for('add_monument') }}">Додати пам'ятник</a>
 <hr>
+
 {% for monument in monuments %}
-<<<<<<< HEAD
+
 <a href="{{ url_for('delete_monument', id=monument[0]) }}">Видалити пам'ятник</a>
-=======
->>>>>>> 285cfc3496e8ce983636e91e7374821fc5c848d5
+
 <div class="monument-card">
     <h3>{{ monument[1] }}</h3>
     <img src="{{ url_for('static', filename=monument[4]) }}" width="250" loading="lazy">
@@ -16,6 +16,7 @@
     <p>Ціна: {{ monument[3] }} ₴</p>
     <p>Матеріал: {{ monument[5] }}</p>
     <a href="{{ url_for('monument_detail', id=monument[0]) }}">Деталі</a>
+
     <form method="POST" action="{{ url_for('order_monument', monument_id=monument[0]) }}">
         <label>Ваше ім'я:</label><br>
         <input type="text" name="user_name" required><br>
@@ -25,5 +26,16 @@
     </form>
     <hr>
 </div>
+
 {% endfor %}
+
+<!-- ПАГИНАЦИЯ -->
+<div>
+    {% if page > 1 %}
+        <a href="/?page={{ page - 1 }}">⬅ Назад</a>
+    {% endif %}
+
+    <a href="/?page={{ page + 1 }}">Вперёд ➡</a>
+</div>
+
 {% endblock %}

@@ -39,10 +39,13 @@ init_db()
 def show_monuments():
     conn = sqlite3.connect("monuments.db")
     c = conn.cursor()
-    c.execute("SELECT * FROM monuments LIMIT 10")
+    page = int(request.args.get("page", 1))
+    per_page = 10
+    offset = (page - 1) * per_page
+    c.execute("SELECT * FROM monuments LIMIT ? OFFSET ?", (per_page, offset))
     monuments = c.fetchall()
     conn.close()
-    return render_template("monuments.html", monuments=monuments)
+    return render_template("monuments.html", monuments=monuments, page=page)
 
 # ===== Детальная страница памятника =====
 @app.route("/monument/<int:id>")
