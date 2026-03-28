@@ -2,7 +2,7 @@
 
 {% block content %}
 <h2>{{ monument[1] }}</h2>
-<img src="{{ url_for('static', filename=monument[4]) }}" width="400"><br><br>
+<img src="{{ ('static', filename=monument[4]) }}" width="400"><br><br>
 <p><strong>Місто:</strong> {{ monument[2] }}</p>
 <p><strong>Ціна:</strong> {{ monument[3] }} ₴</p>
 <p><strong>Матеріал:</strong> {{ monument[5] }}</p>

@@ -11,7 +11,7 @@
 
 <div class="monument-card">
     <h3>{{ monument[1] }}</h3>
-    <img src="{{ url_for('static', filename=monument[4]) }}" width="250" loading="lazy">
+    <img src="{{ monument[4] }}" width="250" loading="lazy">
     <p>Місто: {{ monument[2] }}</p>
     <p>Ціна: {{ monument[3] }} ₴</p>
     <p>Матеріал: {{ monument[5] }}</p>
@@ -30,12 +30,12 @@
 {% endfor %}
 
 <!-- ПАГИНАЦИЯ -->
-<div>
-    {% if page > 1 %}
-        <a href="/?page={{ page - 1 }}">⬅ Назад</a>
-    {% endif %}
-
-    <a href="/?page={{ page + 1 }}">Вперед ➡</a>
+<div class="pagination">
+  {% if page > 1 %}
+    <a href="{{ url_for('show_monuments', page=page-1) }}">Попередня</a>
+  {% endif %}
+  {% if has_next %}
+    <a href="{{ url_for('show_monuments', page=page+1) }}">Наступна</a>
+  {% endif %}
 </div>
-
 {% endblock %}

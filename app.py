@@ -2,6 +2,14 @@ from flask import Flask, render_template, request, redirect, url_for
 import sqlite3
 import os
 import requests
+import cloudinary
+import cloudinary.uploader
+
+cloudinary.config(
+    cloud_name="dobqrqjji",
+    api_key="281524648686869",
+    api_secret="Tx-5xbRmB9T-BG8DgpXTso-cmT4"
+)
 
 app = Flask(__name__)
 app.config["UPLOAD_FOLDER"] = "static/images"
@@ -26,28 +34,38 @@ def init_db():
             price REAL,
             image TEXT,
             material TEXT,
-            description TEXT
+            description TEXT,
+            public_id TEXT
         )
     """)
     conn.commit()
     conn.close()
 
-init_db()
+init_db() 
 
 # ===== Главная страница: список памятников =====
 @app.route("/")
 def show_monuments():
+    per_page = 10  # количество памятников на странице
+    page = int(request.args.get("page", 1))
+    offset = (page - 1) * per_page
+
     conn = sqlite3.connect("monuments.db")
     c = conn.cursor()
-    page = int(request.args.get("page", 1))
-    per_page = 10
-    offset = (page - 1) * per_page
     c.execute("SELECT * FROM monuments LIMIT ? OFFSET ?", (per_page, offset))
     monuments = c.fetchall()
-    conn.close()
-    return render_template("monuments.html", monuments=monuments, page=page)
 
-# ===== Детальная страница памятника =====
+    # проверка, есть ли следующая страница
+    c.execute("SELECT COUNT(*) FROM monuments")
+    total = c.fetchone()[0]
+    conn.close()
+
+    has_next = page * per_page < total
+
+    return render_template(
+        "monuments.html", monuments=monuments, page=page, has_next=has_next
+)
+    # ===== Детальная страница памятника =====
 @app.route("/monument/<int:id>")
 def monument_detail(id):
     conn = sqlite3.connect("monuments.db")
@@ -74,16 +92,17 @@ def add_monument():
         file = request.files["image"]
 
         if file:
-            filename = file.filename
-            filepath = os.path.join(app.config["UPLOAD_FOLDER"], filename)
-            file.save(filepath)
-            image_path = f"images/{filename}"
+            # Загрузка на Cloudinary
+            upload_result = cloudinary.uploader.upload(file)
+            image_path = upload_result["secure_url"]
+            public_id = upload_result["public_id"]
 
+            # Сохраняем в базу: material остаётся текстом, public_id отдельно
             conn = sqlite3.connect("monuments.db")
             c = conn.cursor()
             c.execute(
-                "INSERT INTO monuments (name, location, price, image, material, description) VALUES (?, ?, ?, ?, ?, ?)",
-                (name, location, price, image_path, material, description)
+                "INSERT INTO monuments (name, location, price, image, material, description, public_id) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                (name, location, price, image_path, material, description, public_id)
             )
             conn.commit()
             conn.close()
@@ -94,8 +113,7 @@ def add_monument():
             return redirect(url_for("show_monuments"))
 
     return render_template("add_monument.html")
-
-# ===== Заказ памятника =====
+    return render_template("add_monument.html")# ===== Заказ памятника =====
 @app.route("/order/<int:monument_id>", methods=["POST"])
 def order_monument(monument_id):
     user_name = request.form["user_name"]
